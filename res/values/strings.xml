@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">IntentFuzzer</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="system_apps">System Apps Only</string>
+    <string name="nonsystem_apps">Non-System Apps Only</string>
+    <string name="all_apps">All Apps</string>
+    <string name="type_surportted">Types Surportted</string>
+    <string name="components">Components</string>
+    <string name="fuzz_all">Null Fuzz All</string>
+    <string name="pkginfo_null">No Package Information Found!</string>
+    <string name="no_compt">No Corresponding Components Found!</string>
+    <string name="send_faild">Send Intent Failed!</string>
+    <string name="close">CLOSE</string>
+    <string name="about">IntentFuzzer is inspired by iSECpartners(www.isecpartners.com).
+        You can specify an application,then either fuzz a single component or all components!
+        For single component, just click an item listed. While click the \"Null Fuzz All\" button for all components!</string>
+
+</resources>

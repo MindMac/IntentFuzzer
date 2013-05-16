@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<TextView 
+	    android:id="@+id/type_surportted"
+	    android:layout_width="wrap_content"
+		android:layout_height="wrap_content" 
+		android:text="@string/type_surportted" 
+		android:layout_marginLeft="5dip"
+		android:textSize="15sp"
+		android:textColor="@color/black"/>
+	
+	<Spinner 
+	    android:id="@+id/type_select"
+		android:layout_width="fill_parent"
+		android:layout_height="50dip"
+		android:layout_marginTop="5dip">
+	</Spinner>
+	
+
+	<ListView 
+	    android:id="@+id/cmp_listview" 
+	    android:layout_marginTop="5dip"
+	    android:layout_width="fill_parent"  
+	    android:layout_height="300dip" >
+    </ListView> 
+ 
+	
+	<Button 
+	    android:id="@+id/fuzz_all"
+		android:layout_marginTop="20dip"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" 
+		android:layout_gravity="center"
+		android:text="@string/fuzz_all"
+		android:visibility="gone">
+	</Button>
+
+	
+</LinearLayout>
