@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
+import com.android.intentfuzzer.util.SerializableTest;
 import com.android.intentfuzzer.util.Utils;
 
 import android.app.Activity;
@@ -109,6 +110,7 @@ public class FuzzerActivity extends Activity{
 					}
 					
 					intent.setComponent(toSend);
+					intent.putExtra("test", new SerializableTest());
 
 					if (sendIntentByType(intent, currentType)) {
 						Toast.makeText(FuzzerActivity.this, "Sent " + intent, Toast.LENGTH_LONG).show();
@@ -127,6 +129,7 @@ public class FuzzerActivity extends Activity{
 				for(ComponentName cmpName : components){
 					Intent intent = new Intent();
 					intent.setComponent(cmpName);
+					intent.putExtra("test", new SerializableTest());
 					if (sendIntentByType(intent, currentType)) {
 						Toast.makeText(FuzzerActivity.this, "Sent " + intent, Toast.LENGTH_LONG).show();
 					} else {
