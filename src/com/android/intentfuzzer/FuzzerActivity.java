@@ -67,7 +67,8 @@ public class FuzzerActivity extends Activity{
 		initView();
 		initTypeSpinner();
 		
-		pkgInfo = getPkgInfo();
+		//pkgInfo = getPkgInfo();
+		pkgInfo = ((MyApp)getApplication()).packageInfo;
 		if(pkgInfo == null){
 			Toast.makeText(this, R.string.pkginfo_null, Toast.LENGTH_LONG).show();
 			return;

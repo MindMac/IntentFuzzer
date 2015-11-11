@@ -86,11 +86,12 @@ public class AppInfoActivity extends Activity{
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				// TODO Auto-generated method stub
 				AppInfo appInfo = (AppInfo) appInfoAdapter.getItem(position);
+				((MyApp)getApplication()).packageInfo = appInfo.getPackageInfo();
 				
 				Intent intent = new Intent(AppInfoActivity.this, FuzzerActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putParcelable(Utils.PKGINFO_KEY, appInfo.getPackageInfo());
-				intent.putExtras(bundle);
+				//Bundle bundle = new Bundle();
+				//bundle.putParcelable(Utils.PKGINFO_KEY, appInfo.getPackageInfo());
+				//intent.putExtras(bundle);
 				startActivity(intent);
 			}
         	
