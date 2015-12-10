@@ -9,7 +9,8 @@
     <string name="all_apps">All Apps</string>
     <string name="type_surportted">Types Surportted</string>
     <string name="components">Components</string>
-    <string name="fuzz_all">Null Fuzz All</string>
+    <string name="fuzz_all_null">Null Fuzz All</string>
+    <string name="fuzz_all_se">Serialize Fuzz All</string>
     <string name="pkginfo_null">No Package Information Found!</string>
     <string name="no_compt">No Corresponding Components Found!</string>
     <string name="send_faild">Send Intent Failed!</string>

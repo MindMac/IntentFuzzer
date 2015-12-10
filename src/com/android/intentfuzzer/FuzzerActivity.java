@@ -20,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.ListView;
@@ -32,7 +33,8 @@ public class FuzzerActivity extends Activity{
 	private String currentType = null;
 	private Spinner typeSpinner = null;
 	private ListView cmpListView = null;
-	private Button fuzzAllBtn = null;
+	private Button fuzzAllNullBtn = null;
+	private Button fuzzAllSeBtn = null;
 	
 	private ArrayAdapter<String> cmpAdapter = null;
 	
@@ -93,7 +95,8 @@ public class FuzzerActivity extends Activity{
 	private void initView(){
 		typeSpinner = (Spinner) findViewById(R.id.type_select);
 		cmpListView = (ListView) findViewById(R.id.cmp_listview);
-		fuzzAllBtn = (Button) findViewById(R.id.fuzz_all);
+		fuzzAllNullBtn = (Button) findViewById(R.id.fuzz_all_null);
+		fuzzAllSeBtn = (Button) findViewById(R.id.fuzz_all_se);
 		
 	    cmpListView.setOnItemClickListener(new OnItemClickListener(){
 
@@ -111,10 +114,9 @@ public class FuzzerActivity extends Activity{
 					}
 					
 					intent.setComponent(toSend);
-					intent.putExtra("test", new SerializableTest());
 
 					if (sendIntentByType(intent, currentType)) {
-						Toast.makeText(FuzzerActivity.this, "Sent " + intent, Toast.LENGTH_LONG).show();
+						Toast.makeText(FuzzerActivity.this, "Sent Null " + intent, Toast.LENGTH_LONG).show();
 					} else {
 						Toast.makeText(FuzzerActivity.this, "Send " + intent + " Failed!", Toast.LENGTH_LONG).show();
 					}
@@ -122,7 +124,54 @@ public class FuzzerActivity extends Activity{
 	       	
 	       });
 	    
-	    fuzzAllBtn.setOnClickListener(new OnClickListener(){
+	    cmpListView.setOnItemLongClickListener(new OnItemLongClickListener(){
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+				// TODO Auto-generated method stub
+				ComponentName toSend = null;
+				Intent intent = new Intent();
+				String className =  cmpAdapter.getItem(position).toString();
+				for (ComponentName cmpName : components) {
+					if (cmpName.getClassName().equals(className)) {
+						toSend = cmpName;
+						break;
+					}
+				}
+				
+				intent.setComponent(toSend);
+				intent.putExtra("test", new SerializableTest());
+
+				if (sendIntentByType(intent, currentType)) {
+					Toast.makeText(FuzzerActivity.this, "Sent Serializeable " + intent, Toast.LENGTH_LONG).show();
+				} else {
+					Toast.makeText(FuzzerActivity.this, "Send " + intent + " Failed!", Toast.LENGTH_LONG).show();
+				}
+				return true;
+			}
+       	
+       });
+
+	    
+	    fuzzAllNullBtn.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				for(ComponentName cmpName : components){
+					Intent intent = new Intent();
+					intent.setComponent(cmpName);
+					if (sendIntentByType(intent, currentType)) {
+						Toast.makeText(FuzzerActivity.this, "Sent Null " + intent, Toast.LENGTH_LONG).show();
+					} else {
+						Toast.makeText(FuzzerActivity.this, R.string.send_faild, Toast.LENGTH_LONG).show();
+					}
+				}
+			}
+	    	
+	    });
+	    
+	    fuzzAllSeBtn.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
@@ -132,7 +181,7 @@ public class FuzzerActivity extends Activity{
 					intent.setComponent(cmpName);
 					intent.putExtra("test", new SerializableTest());
 					if (sendIntentByType(intent, currentType)) {
-						Toast.makeText(FuzzerActivity.this, "Sent " + intent, Toast.LENGTH_LONG).show();
+						Toast.makeText(FuzzerActivity.this, "Sent Serializeable " + intent, Toast.LENGTH_LONG).show();
 					} else {
 						Toast.makeText(FuzzerActivity.this, R.string.send_faild, Toast.LENGTH_LONG).show();
 					}
@@ -140,6 +189,7 @@ public class FuzzerActivity extends Activity{
 			}
 	    	
 	    });
+
 	}
 	
 	private void initTypeSpinner(){
@@ -168,7 +218,8 @@ public class FuzzerActivity extends Activity{
 	
 	
 	private void updateComponents(String currentType){
-		fuzzAllBtn.setVisibility(View.INVISIBLE);
+		fuzzAllNullBtn.setVisibility(View.INVISIBLE);
+		fuzzAllSeBtn.setVisibility(View.INVISIBLE);
 		components = getComponents(currentType);
 		cmpNames.clear();
 		if(!components.isEmpty())
@@ -180,7 +231,8 @@ public class FuzzerActivity extends Activity{
 				}
 			}
 			
-			fuzzAllBtn.setVisibility(View.VISIBLE);
+			fuzzAllNullBtn.setVisibility(View.VISIBLE);
+			fuzzAllSeBtn.setVisibility(View.VISIBLE);
 			
 		}else{
 			Toast.makeText(this, R.string.no_compt, Toast.LENGTH_LONG).show();
